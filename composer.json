@@ -1,0 +1,50 @@
+{
+    "name": "lruisen/inertia-think",
+    "description": "The ThinkPHP adapter for Inertia.js.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "thinkphp",
+        "inertia"
+    ],
+    "authors": [
+        {
+            "name": "lruisen",
+            "email": "lruisen@email.cn"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-curl": "*",
+        "topthink/framework": "^8.0",
+        "symfony/console": "^6.0|^7.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "symfony/http-foundation": "^6.4",
+        "symfony/process": "^6.4",
+        "topthink/think-view": "^2.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": ">=4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inertia\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "Inertia\\InertiaService"
+            ],
+            "config": {
+                "inertia": "config/inertia.php",
+                "view": "config/view.php"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
