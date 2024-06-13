@@ -1,23 +1,23 @@
 <?php
 
-use Inertia\Facade\Inertia;
-use Inertia\Response;
 use Inertia\ResponseFactory;
 use think\contract\Arrayable;
+use think\Response;
+use think\response\Json;
 
 if (!function_exists('inertia')) {
     /**
      * Inertia helper.
      *
-     * @param null|string $component
+     * @param string|null $component
      * @param array|Arrayable $props
-     * @return ResponseFactory|Response
+     * @return ResponseFactory|Response|Json|string
      */
-    function inertia($component = null, $props = [])
+    function inertia(string $component = null, Arrayable|array $props = []): Json|Response|ResponseFactory|string
     {
-        $instance = Inertia::getFacadeRoot();
+        $instance = new ResponseFactory();
 
-        if ($component) {
+        if (!empty($component)) {
             return $instance->render($component, $props);
         }
 
@@ -29,12 +29,12 @@ if (!function_exists('inertia_location')) {
     /**
      * Inertia location helper.
      *
-     * @param string  url
-     * @return Response
+     * @param  $url
+     * @return \Symfony\Component\HttpFoundation\Response|Response
      */
-    function inertia_location($url): Response
+    function inertia_location($url): Response|\Symfony\Component\HttpFoundation\Response
     {
-        $instance = Inertia::getFacadeRoot();
+        $instance = new ResponseFactory();
 
         return $instance->location($url);
     }

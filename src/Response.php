@@ -6,7 +6,6 @@ use Closure;
 use GuzzleHttp\Promise\PromiseInterface;
 use Inertia\Enum\Header;
 use Inertia\Traits\Macroable;
-use Inertia\Utils\Str;
 use think\contract\Arrayable;
 use think\facade\View;
 use think\helper\Arr;
@@ -27,6 +26,18 @@ class Response
     protected $version;
 
     protected $viewData = [];
+
+    public function __toString()
+    {
+        $response = $this->toResponse(request());
+        if ($response instanceof Json) {
+            $response = $response->getData();
+            json_encode($response, JSON_UNESCAPED_UNICODE);
+            $response = sprintf('inertia_%s', json_encode($response, JSON_UNESCAPED_UNICODE));
+        }
+
+        return $response;
+    }
 
     /**
      * @param string $component
@@ -97,7 +108,7 @@ class Response
         $page = [
             'component' => $this->component,
             'props' => $props,
-            'url' => Str::start(Str::after($request->url(true), $request->domain(true)), '/'),
+            'url' => $request->url(),
             'version' => $this->version,
         ];
 

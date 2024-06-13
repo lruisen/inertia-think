@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use think\contract\Arrayable;
 use think\facade\Request;
 use think\helper\Arr;
-use think\response\Json;
 
 class ResponseFactory
 {
@@ -96,7 +95,7 @@ class ResponseFactory
     /**
      * @param string $component
      * @param array|Arrayable $props
-     * @return \think\Response|Json
+     * @return Response
      */
     public function render(string $component, Arrayable|array $props = [])
     {
@@ -104,14 +103,12 @@ class ResponseFactory
             $props = $props->toArray();
         }
 
-        $response = new Response(
+        return new Response(
             $component,
             array_merge($this->sharedProps, $props),
             $this->rootView,
             $this->getVersion()
         );
-
-        return $response->toResponse(request());
     }
 
     /**
@@ -121,7 +118,10 @@ class ResponseFactory
     public function location(SymfonyRedirect|string $url)
     {
         if (Request::inertia()) {
-            return \think\Response::create([], 'html', 409)->header([Header::LOCATION => $url instanceof SymfonyRedirect ? $url->getTargetUrl() : $url]);
+            return \think\Response::create([], 'html', 409)
+                ->header([
+                    Header::LOCATION => $url instanceof SymfonyRedirect ? $url->getTargetUrl() : $url
+                ]);
         }
 
         return $url instanceof SymfonyRedirect ? $url : redirect($url);

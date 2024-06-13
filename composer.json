@@ -13,6 +13,14 @@
             "email": "lruisen@email.cn"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Inertia\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
     "require": {
         "php": "^8.0",
         "ext-curl": "*",
@@ -26,13 +34,8 @@
     "require-dev": {
         "symfony/var-dumper": ">=4.2"
     },
-    "autoload": {
-        "psr-4": {
-            "Inertia\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+    "suggest": {
+        "ext-pcntl": "Recommended when running the Inertia SSR server via the `inertia:start-ssr` command."
     },
     "extra": {
         "think": {
@@ -40,8 +43,7 @@
                 "Inertia\\InertiaService"
             ],
             "config": {
-                "inertia": "config/inertia.php",
-                "view": "config/view.php"
+                "inertia": "config/inertia.php"
             }
         }
     },

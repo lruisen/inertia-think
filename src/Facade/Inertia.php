@@ -5,9 +5,9 @@ namespace Inertia\Facade;
 use Closure;
 use Inertia\AlwaysProp;
 use Inertia\LazyProp;
+use Inertia\Response;
 use Inertia\ResponseFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use think\contract\Arrayable;
 use think\Facade;
 
@@ -20,8 +20,8 @@ use think\Facade;
  * @method static string getVersion()
  * @method static LazyProp lazy(callable $callback)
  * @method static AlwaysProp always(mixed $value)
- * @method static \Inertia\Response render(string $component, array|Arrayable $props = [])
- * @method static Response location(string|RedirectResponse $url)
+ * @method static Response render(string $component, array|Arrayable $props = [])
+ * @method static ResponseFactory location(string|RedirectResponse $url)
  * @method static void macro(string $name, object|callable $macro)
  * @method static void mixin(object $mixin, bool $replace = true)
  * @method static bool hasMacro(string $name)

@@ -22,10 +22,10 @@ class {{ class }} extends Middleware
     * Handle the incoming request.
     *
     * @param Request $request
-    * @param callable $next
+    * @param Closure $next
     * @return Response
     */
-    public function handle(Request $request, callable $next): Response
+    public function handle(Request $request, Closure $next): Response
     {
         // 中间件逻辑
         return $next($request);
