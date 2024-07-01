@@ -47,8 +47,10 @@ class InertiaService extends Service
 
     protected function registerRequestMacro(): void
     {
-        Request::macro('inertia', function () {
-            return (bool)request()->header(Header::INERTIA);
-        });
+        if (method_exists(Request::class, 'macro')) {
+            Request::macro('inertia', function () {
+                return (bool)request()->header(Header::INERTIA);
+            });
+        }
     }
 }
